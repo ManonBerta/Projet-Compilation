@@ -9,7 +9,11 @@ IS                      (u|U|l|L)* */
 #include <stdio.h>
 #include "y.tab.h"
 #include <stdlib.h>
+<<<<<<< HEAD
 /* Ne gère pas les commentaires. A rajouter */
+=======
+/* Ne gÃ¨re pas les commentaires. A rajouter */
+>>>>>>> master
 /* Supprimer les lignes dont vous n'avez pas besoin. */
 
 %}
@@ -27,8 +31,13 @@ IS                      (u|U|l|L)* */
 "void"                  { return VOID ;}
 "while"                 { return WHILE ;}
 
+<<<<<<< HEAD
 {L}({L}|{D})*           { yylval=atoi(yytext) ; return IDENTIFIER ;}
 {D}+			{ yylval=atoi(yytext) ; return CONSTANT;}
+=======
+{L}({L}|{D})*           { yylval=atoi(yytext) ;return IDENTIFIER ;}
+{D}+			{return CONSTANT;}
+>>>>>>> master
 
 "->"                    { return PTR_OP ;}
 "&&"                    { return AND_OP ;}
