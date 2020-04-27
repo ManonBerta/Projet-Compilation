@@ -1,5 +1,6 @@
 /* test minimal pour un compilateur */
-
+//extern int b;
+//extern void afficher( int a );
 int a;
 int main() {
   int a;

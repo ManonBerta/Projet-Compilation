@@ -1,6 +1,5 @@
-#include<stdio.h>
-void printd( int i ){
-printf("%d",i);}
+/* Description d'une liste chainee */
+extern int printd( int i );
 
 
 struct liste {

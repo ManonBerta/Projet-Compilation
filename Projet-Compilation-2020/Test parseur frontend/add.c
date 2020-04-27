@@ -1,6 +1,4 @@
-#include<stdio.h>
-void printd( int i ){
-printf("%d",i);}
+extern int printd( int i );
 
 int main() {
   int i;
