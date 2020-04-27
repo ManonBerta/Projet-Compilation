@@ -55,7 +55,11 @@ argument_expression_list 	: expression {$$ = $1;}
 
 unary_expression	: postfix_expression {$$ = $1;}
         		| unary_operator unary_expression{$$ = $1 $2;}
+<<<<<<< Updated upstream
         		| SIZEOF unary_expression {$$ = $1 $2;}
+=======
+        		| SIZEOF unary_expression %prec neg {$$ = $1 $2;}
+>>>>>>> Stashed changes
         		;
 
 unary_operator 	: '&' {$$ = &;}
