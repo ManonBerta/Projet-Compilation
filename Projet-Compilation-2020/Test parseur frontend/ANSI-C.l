@@ -1,18 +1,17 @@
-D                       [0-9]
-L                       [a-zA-Z_]
 /*H                       [a-fA-F0-9]
 E                       [Ee][+-]?{D}+
 FS                      (f|F|l|L)
 IS                      (u|U|l|L)* */
-
 %{
-#include <stdio.h>
 #include "y.tab.h"
-#include <stdlib.h>
+int yylineno;
 /* Ne gère pas les commentaires. A rajouter */
 /* Supprimer les lignes dont vous n'avez pas besoin. */
 
 %}
+
+D                       [0-9]
+L                       [a-zA-Z_]
 
 %%
 "else"                  { return ELSE ; }
@@ -38,7 +37,8 @@ IS                      (u|U|l|L)* */
 "=="                    { return EQ_OP ;}
 "!="                    { return NE_OP ;}
 
-[ \t\v\n\f]             ;
+\n			{yylineno++ ;}
+[ \t\v\f]             ;
 .                       { return yytext[0]; }
 %%
 

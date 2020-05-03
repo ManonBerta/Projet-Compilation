@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "y.tab.h"
-int yylex();
+
+//recuperer le numero d'une ligne du fichier de l'analyseur lexical pour gerer les erreurs
+extern int yylineno;
+void yyerror(char *s);
+int printline();
 %}
 
 %token IDENTIFIER CONSTANT SIZEOF
@@ -12,7 +16,8 @@ int yylex();
 %token INT VOID
 %token STRUCT 
 %token IF ELSE WHILE FOR RETURN GOTO
-
+//gerer les ambiguités
+%left '<' '>' '=' LE_OP GE_OP EQ_OP NE_OP
 %left '-' '+'
 %left '*' '/'
 %nonassoc unary_op
@@ -37,6 +42,11 @@ postfix_expression
 argument_expression_list
         : expression
         | argument_expression_list ',' expression
+        ;
+
+expression
+        : logical_or_expression
+        | unary_expression '=' expression
         ;
 
 unary_expression
@@ -85,11 +95,6 @@ logical_and_expression
 logical_or_expression
         : logical_and_expression
         | logical_or_expression OR_OP logical_and_expression
-        ;
-
-expression
-        : logical_or_expression
-        | unary_expression '=' expression
         ;
 
 declaration
@@ -205,9 +210,12 @@ function_definition
 
 %%
 
-int yyerror( char *s ) {
-	fprintf( stderr, "%s\n", s );
-	exit(1);
+void yyerror(char *s){
+	printf("\nLine %d : %s %s\n",yylineno,s,yytext);
+}
+
+int printline(){
+	return yylineno;
 }
 
 int main() {
